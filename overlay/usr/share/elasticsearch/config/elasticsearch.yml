@@ -1,16 +1,102 @@
+# ---------------------------------- Cluster -----------------------------------
+
+# Use a descriptive name for your cluster:
+cluster.name: %ES_CLUSTER_NAME%
+
+
+# ------------------------------------ Node ------------------------------------
+
+# Use a descriptive name for the node:
+node.name: %ES_NODE_NAME%
+
+# Add custom attributes to the node:
+# node.rack: r1
+
+
+# ----------------------------------- Paths ------------------------------------
+
+# Path to directory where to store the data (separate multiple locations by comma):
+# path.data: /path/to/data
+
+# Path to log files:
+# path.logs: /path/to/logs
+
+
+# ----------------------------------- Memory -----------------------------------
+
+# Lock the memory on startup:
+# bootstrap.memory_lock: true
+
+# Make sure that the `ES_HEAP_SIZE` environment variable is set to about half the memory
+# available on the system and that the owner of the process is allowed to use this limit.
+# Elasticsearch performs poorly when the system is swapping the memory.
+
+
+# ---------------------------------- Network -----------------------------------
+
+# Set the bind address to a specific IP (IPv4 or IPv6):
 network.host: 0.0.0.0
+
+
+# Set a custom port for HTTP:
+# http.port: 9200
+
+# This specifies which network interface(s) a node should bind to in order to listen for incoming requests.
+# A node can bind to multiple interfaces, e.g. two network cards, or a site-local address and a local address.
 network.bind_host: 0.0.0.0
+
+# The publish host is the single interface that the node advertises to other nodes in the cluster, so that those nodes can connect to it.
+# Currently an elasticsearch node may be bound to multiple addresses, but only publishes one.
+# If not specified, this defaults to the “best” address from network.host, sorted by IPv4/IPv6 stack preference, then by reachability.
 network.publish_host: %ES_NETWORK_PUBLISH_HOST%
 
-# this value is required because we set "network.host"
-# be sure to modify it appropriately for a production cluster deployment
-discovery.zen.minimum_master_nodes: %ES_ZEN_MINIMUM_MASTER%
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
+
+
+# --------------------------------- Discovery ----------------------------------
+
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
 discovery.zen.ping.unicast.hosts: %ES_ZEN_PING_UNICAST_HOSTS%
 
-# Cors
+# Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
+discovery.zen.minimum_master_nodes: %ES_ZEN_MINIMUM_MASTER%
+
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
+
+
+# ---------------------------------- Gateway -----------------------------------
+
+# Block initial recovery after a full cluster restart until N nodes are started:
+# gateway.recover_after_nodes: 3
+
+# For more information, see the documentation at:
+# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
+
+
+# ---------------------------------- Various -----------------------------------
+# Disable starting multiple nodes on a single system:
+# node.max_local_storage_nodes: 1
+
+# Require explicit names when deleting indices:
+# action.destructive_requires_name: true
+
+
+# ------------------------------------ Cors ------------------------------------
+
+# Enable or disable cross-origin resource sharing, i.e. whether a browser on another origin can execute requests against Elasticsearch.
+# Set to true to enable Elasticsearch to process pre-flight CORS requests.
 http.cors.enabled: %ES_CORS_ENABLED%
+
+# Which origins to allow. Defaults to no origins allowed.
+# If you prepend and append a / to the value, this will be treated as a regular expression, allowing you to support HTTP and HTTPs.
 http.cors.allow-origin: "%ES_CORS_ORIGIN%"
 
-# Script
+
+# ----------------------------------- Script ------------------------------------
+
+# Enable scripts based on their source
 script.inline: true
 script.indexed: true

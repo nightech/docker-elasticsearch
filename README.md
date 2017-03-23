@@ -2,6 +2,8 @@
 
 ## Environment Variables
 
+* `ES_CLUSTER_NAME` : "null"
+* `ES_NODE_NAME` : "null"
 * `ES_NETWORK_PUBLISH_HOST_DETECT_REGEXP` : detect publish host ip from an regexp (ex: inet 10\..*\/24)
 * `ES_NETWORK_PUBLISH_HOST` : "null"
 * `ES_ZEN_MINIMUM_MASTER` : "1"
