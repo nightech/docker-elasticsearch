@@ -1,8 +1,11 @@
 network.host: 0.0.0.0
+network.bind_host: 0.0.0.0
+network.publish_host: %ES_NETWORK_PUBLISH_HOST%
 
 # this value is required because we set "network.host"
 # be sure to modify it appropriately for a production cluster deployment
-discovery.zen.minimum_master_nodes: 1
+discovery.zen.minimum_master_nodes: %ES_ZEN_MINIMUM_MASTER%
+discovery.zen.ping.unicast.hosts: %ES_ZEN_PING_UNICAST_HOSTS%
 
 # Cors
 http.cors.enabled: %ES_CORS_ENABLED%
