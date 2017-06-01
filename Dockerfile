@@ -1,8 +1,20 @@
-FROM elasticsearch:2.4
+FROM docker.elastic.co/elasticsearch/elasticsearch:5.4.0
+
+USER root
+
+RUN yum install -y iproute && yum clean all
+
+USER elasticsearch
 
 COPY ./overlay/ /
 
 HEALTHCHECK --interval=30s --retries=3 --timeout=5s CMD curl -s 127.0.0.1:9200 | grep -q number || exit 1
 
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["elasticsearch"]
+# Uninstall xpack
+RUN eval ${ES_JAVA_OPTS:-} elasticsearch-plugin remove x-pack
+
+# Disabled xpack
+# ENV xpack.security.enabled false
+# ENV xpack.monitoring.enabled false
+
+CMD ["docker-entrypoint.sh"]
