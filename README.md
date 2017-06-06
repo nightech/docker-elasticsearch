@@ -1,6 +1,10 @@
 # Docker Elasticsearch
 
-Elasticsearch 5.4 with xpack disabled
+Elasticsearch 5.4 
+* [X-Pack](https://www.elastic.co/products/x-pack) disabled
+* plugins installed : 
+  * [ICU Analysis Plugin](https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-icu.html)
+
 
 ## Environment Variables
 

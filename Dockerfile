@@ -13,6 +13,9 @@ HEALTHCHECK --interval=30s --retries=3 --timeout=5s CMD curl -s 127.0.0.1:9200 |
 # Uninstall xpack
 RUN eval ${ES_JAVA_OPTS:-} elasticsearch-plugin remove x-pack
 
+# Install plugins
+RUN eval ${ES_JAVA_OPTS:-} elasticsearch-plugin install analysis-icu
+
 # Disabled xpack
 # ENV xpack.security.enabled false
 # ENV xpack.monitoring.enabled false
